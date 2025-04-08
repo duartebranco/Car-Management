@@ -10,29 +10,56 @@
     <link rel="stylesheet" href="myCSS.css" />
 </head>
 <body>
-    <div class="container py-5">
-        <h1>Car Management</h1>
-        <p class="mt-4">TEXT ...</p>
+    <div class="container py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
+        <div class="text-center">
+            <h1>Car Management</h1>
+            <form class="d-flex justify-content-center mt-3">
+                <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
+                <button type="button" class="btn btn-outline-secondary ms-2">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </form>
+        </div>
     </div>
 
-    <footer class="fixed-bottom bg-light text-center py-2 border-top">
-        <div class="d-flex justify-content-around">
-            <a href="home.html" class="btn btn-link text-secondary">
-                <i class="fa-solid fa-house"></i>
-                <div>Home</div>
-            </a>
-            <a href="garage.html" class="btn btn-link text-secondary">
-                <i class="fa-solid fa-car"></i>
-                <div>Garage</div>
-            </a>
-            <a href="mechanic.html" class="btn btn-link text-secondary">
-                <i class="fa-solid fa-screwdriver"></i>
-                <div>Mechanic</div>
-            </a>
-            <a href="messages.html" class="btn btn-link text-secondary">
-                <i class="fa-solid fa-message"></i>
-                <div>Messages</div>
-            </a>
+    <footer class="fixed-bottom bg-light py-2 border-top">
+        <div class="container">
+            <div class="row text-center">
+                <!-- Home Button -->
+                <div class="col">
+                    <a href="index.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-house"></i>
+                        <div>Home</div>
+                    </a>
+                </div>
+                <!-- Garage Button -->
+                <div class="col">
+                    <a href="garage.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-car"></i>
+                        <div>Garage</div>
+                    </a>
+                </div>
+                <!-- + Button -->
+                <div class="col">
+                    <a href="new.html" class="btn btn-primary rounded-circle position-absolute top-0 start-50 translate-middle plus-btn">
+                        <i class="fa-solid fa-plus fa-lg"></i>
+                    </a>
+                </div>
+                <!-- Mechanic Button -->
+                <div class="col">
+                    <a href="mechanic.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-screwdriver"></i>
+                        <div>Mechanic</div>
+                    </a>
+                </div>
+                <!-- Messages Button -->
+                <div class="col">
+                    <a href="messages.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-message"></i>
+                        <div>Messages</div>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 

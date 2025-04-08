@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Required meta tags -->
 		<meta charset="utf-8" />
 		<meta
 			name="viewport"
@@ -15,11 +16,96 @@
 		/>
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css"
-			integrity="sha512-lauN4D/0AgFUGvmMR+knQnbOADyD/XuQ8VF18I8Ll0+TLvsujshyxvU+uzogmQbSq6qJd5jnUdYtK8ShxXMlSg=="
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+			integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
 		<link rel="stylesheet" href="myCSS.css" />
+		<link rel="stylesheet" href="garage.css" />
 	</head>
+	<body>
+        <div class="container py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
+            <div class="text-center">
+                <h1>Car Management</h1>
+                <form class="d-flex justify-content-center mt-3">
+                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
+                    <button type="button" class="btn btn-outline-secondary ms-2">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+		<h1 class="text-center my-3">
+            My Garage <i class="fa-solid fa-car me-2"></i>
+        </h1>
+		<div class="garage-container container-fluid">
+			<div class="row gx-2" id="garageRow"></div>
+		</div>
+		
+        <footer class="fixed-bottom bg-light py-2 border-top">
+			<div class="container">
+				<div class="row text-center">
+					<!-- Home Button -->
+					<div class="col">
+						<a href="index.html" class="btn btn-link text-secondary footer-btn">
+							<i class="fa-solid fa-house"></i>
+							<div>Home</div>
+						</a>
+					</div>
+					<!-- Garage Button -->
+					<div class="col">
+						<a
+							href="garage.html"
+							class="btn btn-link text-secondary footer-btn"
+						>
+							<i class="fa-solid fa-car"></i>
+							<div>Garage</div>
+						</a>
+					</div>
+					<!-- + Button -->
+					<div class="col">
+						<a
+							href="new.html"
+							class="btn btn-primary rounded-circle position-absolute top-0 start-50 translate-middle plus-btn"
+						>
+							<i class="fa-solid fa-plus fa-lg"></i>
+						</a>
+					</div>
+					<!-- Mechanic Button -->
+					<div class="col">
+						<a
+							href="mechanic.html"
+							class="btn btn-link text-secondary footer-btn"
+						>
+							<i class="fa-solid fa-screwdriver"></i>
+							<div>Mechanic</div>
+						</a>
+					</div>
+					<!-- Messages Button -->
+					<div class="col">
+						<a
+							href="messages.html"
+							class="btn btn-link text-secondary footer-btn"
+						>
+							<i class="fa-solid fa-message"></i>
+							<div>Messages</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+		crossorigin="anonymous"
+	></script>
+	<script
+		src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+		crossorigin="anonymous"
+	></script>
+	<script src="garage.js"></script>
 </html>
