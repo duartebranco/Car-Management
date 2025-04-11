@@ -1,31 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Sample data for cars – replace with dynamic data as needed
-    const cars = [
-        { image: "https://via.placeholder.com/80", name: "Toyota Corolla", owner: "John Doe", matricula: "ABC-123" },
-        { image: "https://via.placeholder.com/80", name: "Toyota Corolla", owner: "John Doe", matricula: "ABC-123" },
-        { image: "https://via.placeholder.com/80", name: "Honda Civic", owner: "Jane Doe", matricula: "XYZ-789" },
-        // ...add more cars here
-    ];
+import { db, auth } from "./firebase.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-    const row = document.getElementById("garageRow");
-    
-    cars.forEach(car => {
-        const col = document.createElement("div");
-        col.className = "col-6 mb-3"; // Two per row on phone
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.style.borderRadius = "15px";
+$(document).ready(function(){
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            console.log("User not logged in.");
+            return; // Optionally, redirect to the auth page here
+        }
         
-        card.innerHTML = `
-            <div class="card-body text-start">
-                <img src="${car.image}" alt="${car.name}" class="rounded-circle mb-2" style="width: 80px; height:80px;">
-                <h5 class="card-title">${car.name}</h5>
-                <p class="card-text">Owner: ${car.owner}</p>
-                <p class="card-text">Matricula: ${car.matricula}</p>
-            </div>`;
+        // Query for cars matching the user's UID
+        const q = query(collection(db, "cars"), where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
         
-        col.appendChild(card);
-        row.appendChild(col);
+        const $row = $("#garageRow");
+        querySnapshot.forEach((doc) => {
+            const car = doc.data();
+            const $col = $('<div>', { class: "col-6 mb-3" });
+            const $card = $('<div>', { class: "card", css: { borderRadius: "15px" } });
+            
+            const cardInnerHtml = `
+                <div class="card-body text-start">
+                    <h5 class="card-title">${car.name}</h5>
+                    <p class="card-text">Type: ${car.vehicleType}</p>
+                    <p class="card-text">Plate: ${car.plate}</p>
+                    <p class="card-text">Brand: ${car.brand}</p>
+                    <p class="card-text">Model: ${car.model}</p>
+                    ${car.kms ? `<p class="card-text">Kms: ${car.kms}</p>` : ""}
+                    ${car.year ? `<p class="card-text">Year: ${car.year}</p>` : ""}
+                </div>
+            `;
+            $card.html(cardInnerHtml);
+            $col.append($card);
+            $row.append($col);
+        });
     });
 });
