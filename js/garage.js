@@ -57,7 +57,7 @@ $(document).ready(function () {
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
                     <div class="custom-dropdown-content">
-                        <a href="#">Edit</a>
+                        <a href="editcar.html?id=${docId}">Edit</a>
                         <a href="#">Share</a>
                         <a href="#" class="remove-car" data-docid="${docId}" style="color:red;">Remove</a>
                     </div>
