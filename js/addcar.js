@@ -15,6 +15,7 @@ $(document).ready(function(){
         // Gather form data using jQuery
         const carData = {
             userId: user.uid,
+            userName: user.displayName || user.email,
             vehicleType: $("#vehicleType").val(),
             name: $("#name").val(),
             plate: $("#plate").val(),
@@ -28,6 +29,9 @@ $(document).ready(function(){
         try {
             const docRef = await addDoc(collection(db, "cars"), carData);
             console.log("Car added with ID:", docRef.id);
+            // Store message in sessionStorage
+            sessionStorage.setItem("carAddedMessage", `You've added ${carData.name} to your garage`);
+            window.location.href = "garage.html"; // Redireciona após adicionar
             // Optionally: Redirect to the garage page or show a success message
         } catch (error) {
             console.error("Error adding car:", error);

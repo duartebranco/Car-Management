@@ -1,4 +1,41 @@
-.garage-container {
-    padding-left: 10px;
-    padding-right: 10px; /* Optionally restrict right side as well */
+.custom-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: #fff;
+    min-width: 120px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 100;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s; /* Efeito suave */
+}
+
+.custom-dropdown-content a:hover {
+    background: #dadcde; /* Cor de fundo suave ao passar o rato */
+}
+
+#confirmRemovePopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    color: #222;
+    padding: 24px 32px;
+    border-radius: 10px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-size: 1.1rem;
+    min-width: 260px;
 }
