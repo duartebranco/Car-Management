@@ -8,4 +8,4 @@ A garagem já mostra os carros adicionados pelo user.
 
 ## Authentication credentials
 E-mail: defaultuser@email.com
-Password: password
+Password: password 
