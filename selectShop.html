@@ -84,63 +84,73 @@
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Initialize the map with a default view.
-                const map = L.map('map').setView([0, 0], 13);
-                
-                // Add OpenStreetMap tiles.
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
-                
-                // Check if geolocation is available.
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(async function(position) {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-                        
-                        // Center the map on user's location.
-                        map.setView([lat, lng], 13);
-                        
-                        // Add marker for the user's position.
-                        L.marker([lat, lng]).addTo(map)
-                          .bindPopup("You are here")
-                          .openPopup();
-                        
-                        // Fetch nearby car workshops using Foursquare Places API.
-                        try {
-                            const apiKey = "fsq3Nfo7VYHnDQ9mnCPvC+48EZ8ObTjWrzb8P43dNTyxNAo="; // Replace with your Foursquare API key.
-                            const radius = 10000; // Search radius in meters.
-                            const queryStr = "car workshop";
-                            
-                            const url = `https://api.foursquare.com/v3/places/search?query=${encodeURIComponent(queryStr)}&ll=${lat},${lng}&radius=${radius}`;
-                            
-                            const response = await fetch(url, {
-                                headers: {
-                                    Accept: "application/json",
-                                    Authorization: apiKey
-                                }
-                            });
-                            
-                            const data = await response.json();
-                            
-                            // Loop through each workshop and add a marker.
-                            data.results.forEach(ws => {
-                                const wsLat = ws.geocodes.main.latitude;
-                                const wsLng = ws.geocodes.main.longitude;
-                                L.marker([wsLat, wsLng]).addTo(map)
-                                  .bindPopup(ws.name);
-                            });
-                        } catch (error) {
-                            console.error("Error fetching workshops:", error);
-                        }
-                    }, function(error) {
-                        console.error("Geolocation error:", error.message);
-                    });
-                } else {
-                    console.warn("Geolocation is not supported by this browser.");
-                }
+        document.addEventListener("DOMContentLoaded", function () {
+            const map = L.map('map').setView([0, 0], 13);
+            const wrenchIcon = L.divIcon({
+                className: 'custom-wrench-icon',
+                html: '<i class="fa-solid fa-wrench fa-xl" style="color:#2c3e50;"></i>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
             });
+        
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async function (position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                
+                    map.setView([lat, lng], 13);
+                
+                    L.marker([lat, lng]).addTo(map)
+                        .bindPopup("Estás aqui")
+                        .openPopup();
+                
+                    // Consulta à Overpass API
+                    const overpassUrl = "https://overpass-api.de/api/interpreter";
+                    const query = `
+                        [out:json];
+                        (
+                          node["shop"="car_repair"](around:10000,${lat},${lng});
+                        );
+                        out body;
+                    `;
+                
+                    try {
+                        const response = await fetch(overpassUrl, {
+                            method: "POST",
+                            body: query,
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                        });
+                    
+                        const data = await response.json();
+                    
+                        if (data.elements.length === 0) {
+                            alert("Nenhuma oficina encontrada por perto.");
+                        }
+                    
+                        data.elements.forEach(shop => {
+                            if (shop.lat && shop.lon) {
+                                const name = shop.tags.name || "Oficina sem nome";
+                                L.marker([shop.lat, shop.lon], { icon: wrenchIcon }).addTo(map)
+                                    .bindPopup(`<i class="fa-solid fa-wrench"></i> ${name}`);
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Erro ao buscar oficinas:", error);
+                    }
+                
+                }, function (error) {
+                    console.error("Erro na geolocalização:", error.message);
+                });
+            } else {
+                console.warn("Geolocalização não suportada.");
+            }
+        });
         </script>
+
     </body>
 </html>
