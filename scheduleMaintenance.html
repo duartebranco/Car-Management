@@ -62,32 +62,61 @@
                 </form>
             </div>
         </div>
-        
+
         <!-- Firebase and dynamic loading of vehicles -->
         <script type="module">
             import { auth, db } from "./js/firebase.js";
             import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
             import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-        
+
+            const scheduleForm = document.getElementById('scheduleMaintenanceForm');
+            const vehicleSelect = document.getElementById("vehicleSelect");
+            const serviceTypeSelect = document.getElementById("serviceType");
+            const notesTextarea = document.getElementById("maintenanceNotes");
+
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     const vehiclesQuery = query(collection(db, "cars"), where("userId", "==", user.uid));
                     const querySnapshot = await getDocs(vehiclesQuery);
-                    const vehicleSelect = document.getElementById("vehicleSelect");
                     // Clear loading option
                     vehicleSelect.innerHTML = "";
                     if (querySnapshot.empty) {
-                        vehicleSelect.innerHTML = "<option value='' disabled>No vehicles found</option>";
+                        vehicleSelect.innerHTML = "<option value='' disabled selected>No vehicles found. Add one first!</option>";
+                        scheduleForm.querySelector('button[type="submit"]').disabled = true; // Disable submit if no cars
                     } else {
                         vehicleSelect.innerHTML = "<option value='' disabled selected>Select your vehicle</option>";
                         querySnapshot.forEach((doc) => {
                             const car = doc.data();
                             const option = document.createElement("option");
                             option.value = doc.id;
-                            option.textContent = car.name; // You can concatenate more data if needed
+                            // Include more details in the option text if desired
+                            option.textContent = `${car.name} (${car.plate || 'No Plate'})`;
                             vehicleSelect.appendChild(option);
                         });
+                         scheduleForm.querySelector('button[type="submit"]').disabled = false; // Enable submit
                     }
+                } else {
+                     vehicleSelect.innerHTML = "<option value='' disabled selected>Please log in</option>";
+                     scheduleForm.querySelector('button[type="submit"]').disabled = true;
+                }
+            });
+
+            // Store data in sessionStorage before navigating
+            scheduleForm.addEventListener('submit', function(event) {
+                const vehicleId = vehicleSelect.value;
+                const serviceType = serviceTypeSelect.value;
+                const notes = notesTextarea.value;
+
+                if (vehicleId && serviceType) {
+                    sessionStorage.setItem('maintenanceData', JSON.stringify({
+                        vehicleId: vehicleId,
+                        serviceType: serviceType,
+                        notes: notes
+                    }));
+                    // Allow form submission to proceed to selectShop.html
+                } else {
+                    alert("Please select a vehicle and service type.");
+                    event.preventDefault(); // Prevent submission if validation fails
                 }
             });
         </script>

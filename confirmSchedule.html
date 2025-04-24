@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Confirm Schedule - Car Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/myCSS.css" />
+    <style>
+        body {
+            padding-bottom: 80px; /* Add padding to prevent footer from covering content */
+        }
+        /* Basic styling for time slots if needed */
+        .time-slot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        .time-slot {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer;
+        }
+        .time-slot.selected {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+        .time-slot.disabled {
+            background-color: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        #weekendMessage {
+            display: none;
+            color: #dc3545;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center">Car Manager</h1>
+        <div class="mt-4">
+            <h2 class="mb-4 d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-solid fa-calendar-check"></i> Schedule Maintenance
+                </span>
+                <a href="selectShop.html" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </h2>
+
+            <h3 id="shopNameDisplay" class="mb-3">Loading shop...</h3>
+
+            <form id="confirmScheduleForm">
+                <!-- Date Selection -->
+                <div class="mb-3">
+                    <label for="scheduleDate" class="form-label">Choose Date</label>
+                    <input type="date" class="form-control" id="scheduleDate" required>
+                </div>
+
+                <!-- Time Selection -->
+                <div class="mb-3">
+                    <label class="form-label">Choose Hour</label>
+                    <div class="time-slot-grid" id="timeSlots">
+                        <!-- Time slots will be dynamically updated -->
+                        <div class="time-slot" data-time="09:00">9h</div>
+                        <div class="time-slot" data-time="10:00">10h</div>
+                        <div class="time-slot" data-time="11:00">11h</div>
+                        <div class="time-slot" data-time="12:00">12h</div>
+                        <div class="time-slot" data-time="13:00">13h</div>
+                        <div class="time-slot" data-time="14:00">14h</div>
+                        <div class="time-slot" data-time="15:00">15h</div>
+                        <div class="time-slot" data-time="16:00">16h</div>
+                        <div class="time-slot" data-time="17:00">17h</div>
+                    </div>
+                    <input type="hidden" id="selectedTime" name="selectedTime" required>
+                    <div id="timeError" class="text-danger mt-1" style="display: none;">Please select an available time slot.</div>
+                    <div id="weekendMessage">The shop is closed on weekends. Please select a weekday.</div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <!-- Changed Cancel to go back to shop selection -->
+                        <a href="selectShop.html" class="btn btn-danger btn-lg w-100">
+                            <i class="fa-solid fa-xmark"></i> Cancel
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            Schedule <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed-bottom bg-light py-2 border-top">
+        <div class="container">
+            <div class="row text-center">
+                <!-- Home Button -->
+                <div class="col">
+                    <a href="index.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-house"></i>
+                        <div>Home</div>
+                    </a>
+                </div>
+                <!-- Garage Button -->
+                <div class="col">
+                    <a href="garage.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-car"></i>
+                        <div>Garage</div>
+                    </a>
+                </div>
+                <!-- + Button -->
+                <div class="col">
+                    <a href="new.html" class="btn btn-primary rounded-circle position-absolute top-0 start-50 translate-middle plus-btn">
+                        <i class="fa-solid fa-plus fa-lg"></i>
+                    </a>
+                </div>
+                <!-- Mechanic Button -->
+                <div class="col">
+                    <a href="mechanic.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-screwdriver"></i>
+                        <div>Mechanic</div>
+                    </a>
+                </div>
+                <!-- Messages Button -->
+                <div class="col">
+                    <a href="messages.html" class="btn btn-link text-secondary footer-btn">
+                        <i class="fa-solid fa-message"></i>
+                        <div>Messages</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Add your Firebase scripts if needed for final submission -->
+    <script type="module" src="js/firebase.js"></script> <!-- Ensure firebase is imported -->
+    <script type="module"> // Make the main script a module
+        // Import necessary Firestore functions
+        import { auth, db } from "./js/firebase.js";
+        import { collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const shopNameDisplay = document.getElementById('shopNameDisplay');
+            const scheduleDateInput = document.getElementById('scheduleDate');
+            const timeSlotsContainer = document.getElementById('timeSlots');
+            const selectedTimeInput = document.getElementById('selectedTime');
+            const timeError = document.getElementById('timeError');
+            const weekendMessage = document.getElementById('weekendMessage');
+            const form = document.getElementById('confirmScheduleForm');
+            const allTimeSlots = Array.from(timeSlotsContainer.querySelectorAll('.time-slot'));
+
+            let currentUserId = null; // Variable to store user ID
+
+            // Check auth state
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUserId = user.uid;
+                    form.querySelector('button[type="submit"]').disabled = false; // Enable form submission
+                } else {
+                    console.error("User not logged in!");
+                    alert("You must be logged in to schedule maintenance.");
+                    form.querySelector('button[type="submit"]').disabled = true; // Disable form
+                    // Optionally redirect: window.location.href = 'auth.html';
+                }
+            });
+
+
+            // Set minimum date to today
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Set time to midnight to compare dates correctly
+            const todayString = today.toISOString().split('T')[0];
+            scheduleDateInput.setAttribute('min', todayString);
+
+            // --- Function to update time slot availability ---
+            function updateAvailability() {
+                const selectedDateStr = scheduleDateInput.value;
+                selectedTimeInput.value = ''; // Clear selected time on date change
+                timeError.style.display = 'none'; // Hide error
+                weekendMessage.style.display = 'none'; // Hide weekend message
+
+                // Clear previous selections and disabled states
+                allTimeSlots.forEach(slot => {
+                    slot.classList.remove('selected', 'disabled');
+                });
+
+                if (!selectedDateStr) {
+                     allTimeSlots.forEach(slot => slot.classList.add('disabled'));
+                    return;
+                }
+
+                const selectedDate = new Date(selectedDateStr + 'T00:00:00');
+                const dayOfWeek = selectedDate.getDay();
+
+                // Disable past dates rigorously
+                if (selectedDate < today) {
+                     allTimeSlots.forEach(slot => slot.classList.add('disabled'));
+                     weekendMessage.textContent = "Cannot schedule for a past date.";
+                     weekendMessage.style.display = 'block';
+                     return; // Stop further processing for past dates
+                } else {
+                     weekendMessage.textContent = "The shop is closed on weekends. Please select a weekday."; // Reset message
+                }
+
+
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    // Weekend: disable all slots and show message
+                    allTimeSlots.forEach(slot => slot.classList.add('disabled'));
+                    weekendMessage.style.display = 'block';
+                } else {
+                    // Weekday: randomly disable some slots (Placeholder logic)
+                    const slotsToDisable = Math.floor(Math.random() * 4) + 2;
+                    let disabledCount = 0;
+                    const availableSlots = [...allTimeSlots];
+
+                    while (disabledCount < slotsToDisable && availableSlots.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * availableSlots.length);
+                        const slotToDisable = availableSlots.splice(randomIndex, 1)[0];
+                        slotToDisable.classList.add('disabled');
+                        disabledCount++;
+                    }
+                }
+            }
+            scheduleDateInput.addEventListener('change', updateAvailability);
+
+            timeSlotsContainer.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('time-slot') && !target.classList.contains('disabled')) {
+                    const currentlySelected = timeSlotsContainer.querySelector('.time-slot.selected');
+                    if (currentlySelected) {
+                        currentlySelected.classList.remove('selected');
+                    }
+                    target.classList.add('selected');
+                    selectedTimeInput.value = target.getAttribute('data-time');
+                    timeError.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async function(event) { // Make async
+                event.preventDefault();
+
+                if (!currentUserId) {
+                    alert("Authentication error. Please log in again.");
+                    return;
+                }
+
+                const selectedDateVal = scheduleDateInput.value;
+                const selectedTimeVal = selectedTimeInput.value;
+
+                if (!selectedDateVal) {
+                    alert("Please select a date.");
+                    return;
+                }
+
+                 const selectedDate = new Date(selectedDateVal + 'T00:00:00');
+                 const dayOfWeek = selectedDate.getDay();
+
+                 // Double check date validity on submit
+                 if (selectedDate < today) {
+                     weekendMessage.textContent = "Cannot schedule for a past date.";
+                     weekendMessage.style.display = 'block';
+                     timeError.style.display = 'none';
+                     return;
+                 } else {
+                      weekendMessage.textContent = "The shop is closed on weekends. Please select a weekday."; // Reset message
+                 }
+
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                     weekendMessage.style.display = 'block';
+                     timeError.style.display = 'none';
+                     return;
+                }
+
+                if (!selectedTimeVal) {
+                    timeError.style.display = 'block';
+                    weekendMessage.style.display = 'none';
+                    return;
+                }
+
+                // Retrieve data from sessionStorage
+                const maintenanceDataString = sessionStorage.getItem('maintenanceData');
+                if (!maintenanceDataString) {
+                    alert("Error: Maintenance details not found. Please go back and select vehicle/service again.");
+                    // Consider redirecting back: window.location.href = 'scheduleMaintenance.html';
+                    return;
+                }
+                const maintenanceData = JSON.parse(maintenanceDataString);
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const shopName = urlParams.get('shopName') ? decodeURIComponent(urlParams.get('shopName')) : "N/A";
+
+                // Combine date and time and create a Firestore Timestamp
+                const scheduleTimestamp = Timestamp.fromDate(new Date(`${selectedDateVal}T${selectedTimeVal}`));
+
+                const reminderData = {
+                    userId: currentUserId,
+                    carId: maintenanceData.vehicleId,
+                    serviceType: maintenanceData.serviceType,
+                    notes: maintenanceData.notes || null, // Store null if empty
+                    shopName: shopName,
+                    reminderDate: scheduleTimestamp, // Use Firestore Timestamp
+                    type: "maintenance",
+                    createdAt: Timestamp.now()
+                };
+
+                // Disable button to prevent double submission
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'Scheduling...';
+
+                try {
+                    const docRef = await addDoc(collection(db, "reminders"), reminderData);
+                    console.log("Reminder added with ID: ", docRef.id);
+
+                    // Clear session storage
+                    sessionStorage.removeItem('maintenanceData');
+
+                    // Show success and redirect
+                    alert(`Appointment scheduled successfully at ${shopName} on ${selectedDateVal} at ${selectedTimeVal}!`);
+                    window.location.href = 'index.html'; // Redirect to index page
+
+                } catch (error) {
+                    console.error("Error adding reminder: ", error);
+                    alert("Failed to schedule appointment. Please try again.");
+                    // Re-enable button on error
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Schedule <i class="fa-solid fa-check"></i>';
+                }
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const shopName = urlParams.get('shopName');
+            if (shopName) {
+                shopNameDisplay.textContent = decodeURIComponent(shopName);
+            } else {
+                shopNameDisplay.textContent = "Shop Not Selected";
+                shopNameDisplay.classList.add("text-danger");
+                // form.querySelector('button[type="submit"]').disabled = true;
+            }
+            updateAvailability();
+        });
+    </script>
+</body>
+</html>

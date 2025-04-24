@@ -18,6 +18,11 @@
                 height: 500px;
                 margin: 20px 0;
             }
+            .popup-button {
+                margin-top: 5px;
+                display: block;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -135,8 +140,13 @@
                         data.elements.forEach(shop => {
                             if (shop.lat && shop.lon) {
                                 const name = shop.tags.name || "Oficina sem nome";
+                                const encodedName = encodeURIComponent(name);
+                                const popupContent = `
+                                    <i class="fa-solid fa-wrench"></i> ${name}<br>
+                                    <a href="confirmSchedule.html?shopName=${encodedName}" class="btn btn-sm btn-primary popup-button">Select &rarr;</a>
+                                `;
                                 L.marker([shop.lat, shop.lon], { icon: wrenchIcon }).addTo(map)
-                                    .bindPopup(`<i class="fa-solid fa-wrench"></i> ${name}`);
+                                    .bindPopup(popupContent);
                             }
                         });
                     } catch (error) {
