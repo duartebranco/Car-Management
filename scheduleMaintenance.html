@@ -81,25 +81,22 @@
 
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
-                    const vehiclesQuery = query(collection(db, "cars"), where("userId", "==", user.uid));
-                    const querySnapshot = await getDocs(vehiclesQuery);
-                    // Clear loading option
-                    vehicleSelect.innerHTML = "";
-                    if (querySnapshot.empty) {
-                        vehicleSelect.innerHTML = "<option value='' disabled selected>No vehicles found. Add one first!</option>";
-                        scheduleForm.querySelector('button[type="submit"]').disabled = true; // Disable submit if no cars
-                    } else {
-                        vehicleSelect.innerHTML = "<option value='' disabled selected>Select your vehicle</option>";
-                        querySnapshot.forEach((doc) => {
-                            const car = doc.data();
-                            const option = document.createElement("option");
-                            option.value = doc.id;
-                            // Include more details in the option text if desired
-                            option.textContent = `${car.name} (${car.plate || 'No Plate'})`;
-                            vehicleSelect.appendChild(option);
-                        });
-                         scheduleForm.querySelector('button[type="submit"]').disabled = false; // Enable submit
-                    }
+                    const ownQ    = query(collection(db, "cars"), where("userId",      "==",              user.uid));
+                    const sharedQ = query(collection(db, "cars"), where("sharedWith","array-contains", user.uid));
+                    const [ownSnap, sharedSnap] = await Promise.all([ getDocs(ownQ), getDocs(sharedQ) ]);
+                    const docs     = [...ownSnap.docs, ...sharedSnap.docs];
+                    const unique   = Array.from(new Map(docs.map(d=>[d.id,d])).values());
+
+                    vehicleSelect.innerHTML = unique.length
+                        ? "<option value='' disabled selected>Select your vehicle</option>"
+                        : "<option value='' disabled selected>No vehicles found</option>";
+                    unique.forEach(docSnap => {
+                        const car = docSnap.data();
+                        const option = document.createElement("option");
+                        option.value = docSnap.id;
+                        option.textContent = `${car.name} (${car.plate||"–"})`;
+                        vehicleSelect.appendChild(option);
+                    });
                 } else {
                      vehicleSelect.innerHTML = "<option value='' disabled selected>Please log in</option>";
                      scheduleForm.querySelector('button[type="submit"]').disabled = true;

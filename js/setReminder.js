@@ -4,25 +4,21 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/fi
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) return;
-    const carsQuery = query(
-        collection(db, "cars"),
-        where("userId", "==", user.uid)
-    );
-    const snapshot = await getDocs(carsQuery);
+    const ownQ    = query(collection(db, "cars"), where("userId",      "==",              user.uid));
+    const sharedQ = query(collection(db, "cars"), where("sharedWith","array-contains", user.uid));
+    const [ownSnap, sharedSnap] = await Promise.all([ getDocs(ownQ), getDocs(sharedQ) ]);
+    const docs     = [...ownSnap.docs, ...sharedSnap.docs];
+    const unique   = Array.from(new Map(docs.map(d=>[d.id,d])).values());
+
     const carSelect = document.getElementById("carSelect");
     carSelect.innerHTML = "<option value='' disabled selected>Select a car</option>";
-
-    snapshot.forEach((doc) => {
-        const car = doc.data();
+    unique.forEach(docSnap => {
+        const car = docSnap.data();
         const opt = document.createElement("option");
-        opt.value = doc.id;
-        opt.textContent = `${car.name}`;
+        opt.value = docSnap.id;
+        opt.textContent = car.name;
         carSelect.appendChild(opt);
     });
-
-    if (snapshot.empty) {
-        carSelect.innerHTML = "<option value='' disabled>No cars found</option>";
-    }
 });
 
 document.addEventListener("DOMContentLoaded", () => {

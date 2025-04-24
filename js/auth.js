@@ -1,6 +1,7 @@
 // js/auth.js
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { auth } from "./firebase.js"; // Import the auth instance
+import { setDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { auth, db } from "./firebase.js"; // Import the auth instance
 
 // Sign up function
 export const signUp = async (email, password) => { // Use async/await for cleaner code
@@ -8,6 +9,10 @@ export const signUp = async (email, password) => { // Use async/await for cleane
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     console.log("User signed up:", user);
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      createdAt: new Date()
+    });
     return user; // Return the user object
   } catch (error) {
     console.error("Error signing up:", error);

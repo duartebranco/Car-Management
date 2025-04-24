@@ -42,7 +42,6 @@ onAuthStateChanged(auth, user => {
         return;
     }
     document.getElementById("userEmail").textContent = user.email;
-    document.getElementById("userName").textContent = user.displayName || "(not set)";
 });
 
 document.getElementById("changePasswordBtn").onclick = async () => {
