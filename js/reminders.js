@@ -18,6 +18,26 @@ onAuthStateChanged(auth, async (user) => {
         const reminder = docSnap.data();
         let carName = "";
         let imgSrc = "images/car.png";
+
+        // Format the reminderDate based on its type
+        let formattedDate = "Unknown Date";
+        if (reminder.reminderDate) {
+            if (reminder.reminderDate.toDate) {
+                // Firestore Timestamp: Convert to JS Date
+                const dateObj = reminder.reminderDate.toDate();
+                formattedDate = dateObj.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+            } else if (typeof reminder.reminderDate === "string") {
+                // Already a readable string
+                formattedDate = reminder.reminderDate;
+            }
+        }
+
         if (reminder.carId) {
             const carDoc = await getDoc(doc(db, "cars", reminder.carId));
             if (carDoc.exists()) {
@@ -38,7 +58,7 @@ onAuthStateChanged(auth, async (user) => {
                     <div style="font-size:0.95em;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${carName || "Unknown Car"}</div>
                 </div>
             </div>
-            <div style="white-space:nowrap;font-size:0.95em;font-weight:bold;">${reminder.reminderDate}</div>
+            <div style="white-space:nowrap;font-size:0.95em;font-weight:bold;">${formattedDate}</div>
         `;
         remindersList.appendChild(li);
     }
