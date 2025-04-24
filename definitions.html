@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Definitions - Car Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/myCSS.css" />
+</head>
+<body>
+    <div class="container-fluid py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
+        <div class="text-center">
+            <img src="images/logo.png" alt="Logo" style="height:64px; margin-bottom: 10px;">
+            <h1>Car Management</h1>
+        </div>
+    </div>
+    <div class="container py-5">
+        <h1 class="text-center mb-4"><i class="fa-solid fa-gear"></i> Definitions</h1>
+        <a href="scheduleMaintenance.html" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Account</h5>
+                <div id="userInfo" class="mb-3">
+                    <div><strong>Email:</strong> <span id="userEmail"></span></div>
+                    <div><strong>Name:</strong> <span id="userName"></span></div>
+                </div>
+                <button id="changePasswordBtn" class="btn btn-outline-primary w-100 mb-2">
+                    <i class="fa-solid fa-key"></i> Change Password
+                </button>
+                <button id="logoutBtn" class="btn btn-outline-danger w-100 mb-2">
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </button>
+                <button id="deleteAccountBtn" class="btn btn-outline-secondary w-100">
+                    <i class="fa-solid fa-user-xmark"></i> Delete Account
+                </button>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="index.html" class="btn btn-link"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
+
+    <!-- Custom Popup for messages -->
+    <div id="customPopup" style="display:none; position:fixed; top:30px; left:50%; transform:translateX(-50%); background:#fff; color:#222; padding:20px 30px; border-radius:10px; z-index:9999; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:1.1rem;">
+        <span id="customPopupText"></span>
+        <button id="closeCustomPopup" style="margin-left:20px; background:none; border:none; color:#222; font-weight:bold; font-size:1.2em; cursor:pointer;">&times;</button>
+    </div>
+    <!-- Confirm Delete Popup -->
+    <div id="confirmDeletePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; color:#222; padding:24px 32px; border-radius:10px; z-index:10000; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:1.1rem; min-width:260px;">
+        <span id="confirmDeleteText">Are you sure you want to delete your account? This cannot be undone.</span>
+        <div class="mt-3 text-end">
+            <button id="cancelDeleteBtn" class="btn btn-secondary btn-sm me-2">Cancel</button>
+            <button id="confirmDeleteBtn" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/definitions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
