@@ -1,5 +1,5 @@
 import { auth, db } from "./firebase.js";
-import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
 onAuthStateChanged(auth, async (user) => {
@@ -50,15 +50,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // form submit + redirect
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
         // bootstrap validation
         if (!form.checkValidity()) {
             form.classList.add("was-validated");
             return;
         }
-        // now it’s valid → disable button + show toast + redirect
         submitBtn.disabled = true;
+
+        // Gather reminder data
+        const type = typeSelect.value === "other" ? otherTypeInput.value : typeSelect.value;
+        const carId = document.getElementById("carSelect").value;
+        const numKm = document.getElementById("numKm").value;
+        const reminderDate = document.getElementById("reminderDate").value;
+
+        // Get user
+        const user = auth.currentUser;
+
+        // Save to Firestore
+        try {
+            await addDoc(collection(db, "reminders"), {
+                userId: user.uid,
+                carId,
+                type,
+                numKm: numKm || null,
+                reminderDate,
+                createdAt: new Date()
+            });
+        } catch (err) {
+            alert("Failed to save reminder.");
+            submitBtn.disabled = false;
+            return;
+        }
+
         const toastEl = document.getElementById("successToast");
         const bsToast = new bootstrap.Toast(toastEl);
         bsToast.show();

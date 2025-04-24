@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="css/myCSS.css" />
 </head>
 <body>
-    <div class="container py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
+    <div class="container-fluid py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
         <div class="text-center">
+            <img src="images/logo.png" alt="Logo" style="height:64px; margin-bottom: 10px;">
             <h1>Car Management</h1>
             <form class="d-flex justify-content-center mt-3">
                 <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
@@ -20,6 +21,11 @@
                 </button>
             </form>
         </div>
+    </div>
+
+    <div id="remindersSection" class="container mt-4 text-center">
+        <h3>Your Reminders <i class="fa-regular fa-clock"></i></h3>
+        <ul id="remindersList" class="list-group"></ul>
     </div>
 
     <div class="floating-buttons justify-content-around">
@@ -31,17 +37,17 @@
     <footer class="fixed-bottom bg-light py-2 border-top">
         <div class="container">
             <div class="row text-center">
-                <!-- Home Button -->
+                <!-- Reminder Button -->
                 <div class="col">
-                    <a href="index.html" class="btn btn-link text-secondary footer-btn">
-                        <i class="fa-solid fa-house"></i>
-                        <div>Home</div>
+                    <a href="index.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-clock" style="margin-bottom: 2px;"></i>
+                        <div style="margin-top: 2px;">Reminders</div>
                     </a>
                 </div>
                 <!-- Garage Button -->
                 <div class="col">
-                    <a href="garage.html" class="btn btn-link text-secondary footer-btn">
-                        <i class="fa-solid fa-car"></i>
+                    <a href="garage.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-car" style="margin-bottom: 2px;"></i>
                         <div>Garage</div>
                     </a>
                 </div>
@@ -53,15 +59,15 @@
                 </div>
                 <!-- Mechanic Button -->
                 <div class="col">
-                    <a href="mechanic.html" class="btn btn-link text-secondary footer-btn">
-                        <i class="fa-solid fa-screwdriver"></i>
-                        <div>Mechanic</div>
+                    <a href="x.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-map" style="margin-bottom: 2px;"></i>
+                        <div>Map</div>
                     </a>
                 </div>
                 <!-- Messages Button -->
                 <div class="col">
-                    <a href="messages.html" class="btn btn-link text-secondary footer-btn">
-                        <i class="fa-solid fa-message"></i>
+                    <a href="messages.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-message" style="margin-bottom: 2px;"></i>
                         <div>Messages</div>
                     </a>
                 </div>
@@ -73,5 +79,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script type="module" src="js/checkAuth.js"></script>
     <script src="js/plusbtn.js"></script>
+    <script type="module" src="js/reminders.js"></script>
 </body>
 </html>
