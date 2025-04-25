@@ -57,18 +57,24 @@
                         </div>
                         <div class="col-md-6">
                             <label for="plate" class="form-label">Plate</label>
-                            <input type="text" class="form-control" id="plate" placeholder="Enter plate" required />
+                            <input type="text" class="form-control" id="plate" placeholder="e.g., AA-00-BB" required pattern="[A-Za-z0-9]{2}-[A-Za-z0-9]{2}-[A-Za-z0-9]{2}" title="Plate must be in the format XX-XX-XX (e.g., AA-00-BB)" />
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="brand" class="form-label">Brand</label>
-                            <input type="text" class="form-control" id="brand" placeholder="Enter brand" required />
+                            <select class="form-select" id="brand" required>
+                                <option value="" disabled selected>Select Brand</option>
+                                <!-- Brands will be populated by JS -->
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" placeholder="Enter model" required />
+                            <select class="form-select" id="model" required disabled>
+                                <option value="" disabled selected>Select Model</option>
+                                <!-- Models will be populated by JS based on brand -->
+                            </select>
                         </div>
                     </div>
 

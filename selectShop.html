@@ -150,12 +150,19 @@
                         }
                     
                         data.elements.forEach(shop => {
-                            if (shop.lat && shop.lon) {
-                                const name = shop.tags.name || "Oficina sem nome";
+                            if (shop.lat && shop.lon && shop.tags.name) { // Only include shops with names
+                                const name = shop.tags.name;
                                 const encodedName = encodeURIComponent(name);
                                 const popupContent = `
-                                    <i class="fa-solid fa-wrench"></i> ${name}<br>
-                                    <a href="confirmSchedule.html?shopName=${encodedName}" class="btn btn-sm btn-primary popup-button">Select &rarr;</a>
+                                    <div style="text-align: center;">
+                                        <i class="fa-solid fa-wrench fa-2x" style="color: #0d6efd;"></i>
+                                        <p style="margin: 10px 0; font-weight: bold;">${name}</p>
+                                        <a href="confirmSchedule.html?shopName=${encodedName}" 
+                                           class="btn btn-primary btn-sm" 
+                                           style="border-radius: 20px; padding: 10px 20px; font-size: 0.9rem; background-color: #0056b3; color: #ffffff; border: none;">
+                                            <i class="fa-solid fa-calendar-check"></i> Select Shop
+                                        </a>
+                                    </div>
                                 `;
                                 L.marker([shop.lat, shop.lon], { icon: wrenchIcon }).addTo(map)
                                     .bindPopup(popupContent);

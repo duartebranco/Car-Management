@@ -333,6 +333,15 @@
                     const docRef = await addDoc(collection(db, "reminders"), reminderData);
                     console.log("Reminder added with ID: ", docRef.id);
 
+                    const defaultMessage = {
+                        shopName: shopName,
+                        sender: shopName, // Use shop name as sender identifier
+                        text: `Hello! We've received your maintenance request for ${selectedDateVal} at ${selectedTimeVal}. We look forward to seeing you! 🔧`,
+                        timestamp: Timestamp.now(),
+                        userId: currentUserId
+                    };
+                    await addDoc(collection(db, "messages"), defaultMessage);
+
                     // Clear session storage
                     sessionStorage.removeItem('maintenanceData');
 
