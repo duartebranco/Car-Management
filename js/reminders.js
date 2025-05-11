@@ -44,20 +44,20 @@ function formatDate(date) {
     return `${day}, ${hour}`;
   }
 
-function renderCarButtons(cars) {
-  const $bar = $("#carButtonsBar").empty();
-  cars.forEach(car => {
-    $bar.append(`
-      <button class="car-btn-modern car-btn"
-        data-carid="${car.id}"
-        data-shared="${car.shared ? "1" : ""}">
-        <img src="${getVehicleImg(car.vehicleType)}" alt="${car.name || car.plate || "Car"}" />
-        <span>${car.name || car.plate || "Unnamed"}</span>
-        ${car.shared ? '<span class="shared-badge">Shared</span>' : ""}
-      </button>
-    `);
-  });
-}
+  function renderCarButtons(cars) {
+    const $bar = $("#carButtonsBar").empty();
+    cars.forEach(car => {
+      $bar.append(`
+        <button class="car-btn-modern car-btn"
+          data-carid="${car.id}"
+          data-shared="${car.shared ? "1" : ""}">
+          <img src="${getVehicleImg(car.vehicleType)}" alt="${car.name || car.plate || "Car"}" />
+          <span class="car-btn-label">${car.name || car.plate || "Unnamed"}</span>
+          ${car.shared ? '<span class="shared-badge">Shared</span>' : ""}
+        </button>
+      `);
+    });
+  }
 
 function renderReminders(reminders) {
   const $list = $("#remindersList").empty();
@@ -128,7 +128,7 @@ $(document).on("click", ".car-btn", function () {
     selectedCarId = null;
     renderReminders(allReminders);
   } else {
-    $(".car-btn").removeClass("selected");
+    $(".car-btn").removeClass("selected"); // <-- isto remove de todos
     $btn.addClass("selected");
     selectedCarId = $btn.data("carid");
     renderReminders(allReminders.filter(r => r.carId === selectedCarId));
@@ -187,4 +187,14 @@ $(document).on("click", ".delete-reminder", function (e) {
       alert("Failed to delete reminder.");
     }
   });
+});
+
+document.getElementById('openFilter').addEventListener('click', function() {
+  const bar = document.getElementById('carButtonsBar');
+  const filterIcon = document.getElementById('filterBtn');
+  if (bar.style.display === 'none' || bar.style.display === '') {
+      bar.style.display = 'flex';
+  } else {
+      bar.style.display = 'none';
+  }
 });
