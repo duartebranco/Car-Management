@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Gather reminder data
         const type = typeSelect.value === "other" ? otherTypeInput.value : typeSelect.value;
+        const title = type;
         const carId = document.getElementById("carSelect").value;
         const numKm = document.getElementById("numKm").value;
         const reminderDate = document.getElementById("reminderDate").value;
@@ -70,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 userId: user.uid,
                 carId,
                 type,
+                title,
                 numKm: numKm || null,
                 reminderDate,
                 createdAt: new Date()

@@ -79,14 +79,17 @@ $(document).ready(function () {
   // Show loading state
   $("#garageRow").html('<div class="col-12 text-center my-5"><div class="spinner-border" role="status"></div><p class="mt-2">Loading vehicles...</p></div>');
 
-  // popup on car added
-  const msg = sessionStorage.getItem("carAddedMessage");
-  if (msg) {
-    $("#popupText").text(msg);
-    $("#popupMessage").fadeIn();
-    sessionStorage.removeItem("carAddedMessage");
-  }
-  $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
+// popup on car added
+const msg = sessionStorage.getItem("carAddedMessage");
+if (msg) {
+  $("#popupText").text(msg);
+  $("#popupMessage").fadeIn();
+  sessionStorage.removeItem("carAddedMessage");
+  setTimeout(() => {
+    $("#popupMessage").fadeOut();
+  }, 4000); // 4 segundos
+}
+$("#closePopup").on("click", () => $("#popupMessage").fadeOut());
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) {

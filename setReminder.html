@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="css/myCSS.css" />
 </head>
 <body>
-    <div class="container-fluid py-5" style="background-color: #f2f2f2; border-bottom: 2px solid #ccc;">
+        <div class="container-fluid py-3" style="background-color: #1d1d1d; border-bottom: 2px solid #202020; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
         <div class="text-center">
-            <img src="images/logo.png" alt="Logo" style="height:40px; margin-bottom: 10px;">
-            <h1>Car Management</h1>
+            <img src="images/logo2.png" alt="Logo" style="height:80px; margin-bottom: 10px;">
+            <h1 style="color: #ffffff;">Car Management</h1>
         </div>
     </div>
-
     <div class="container">
         <div class="text-start mt-4">
             <h2><i class="fa-regular fa-clock"></i> Set Reminder</h2>
@@ -26,12 +26,12 @@
                     <label for="typeReminder" class="form-label">Type of Reminder</label>
                     <select class="form-select" id="typeSelect" required>
                         <option value="" disabled selected>Type of Reminder</option>
-                        <option value="insurance">Insurance</option>
-                        <option value="inspection">Inspection</option>
-                        <option value="iuc">IUC</option>
-                        <option value="changeTires">Change Tires</option>
-                        <option value="changeOil">Change Oil</option>
-                        <option value="other">Other</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="Inspection">Inspection</option>
+                        <option value="IUC">IUC</option>
+                        <option value="Change Tires">Change Tires</option>
+                        <option value="Change Oil">Change Oil</option>
+                        <option value="Other">Other</option>
                     </select>
                     <input type="text" class="form-control mt-2" id="otherTypeInput" placeholder="Specify type" style="display: none; width: 200px;">
                 </div>
@@ -67,11 +67,10 @@
             </form>
         </div>
     </div>
-
-    <div class="floating-buttons justify-content-around" style="display:none;">
-        <button type="button" class="btn btn-primary mx-2" data-target="addcar.html">Add Car</button>
-        <button type="button" class="btn btn-primary mx-2" data-target="setReminder.html">Set Reminder</button>
-        <button type="button" class="btn btn-primary mx-2" data-target="scheduleMaintenance.html">Schedule Maintenance</button>
+    <div class="floating-buttons flex-column align-items-center" style="display:none;">
+        <button type="button" class="btn btn-dark my-2" data-target="addcar.html">Add Car</button>
+        <button type="button" class="btn btn-dark my-2" data-target="setReminder.html">Set Reminder</button>
+        <button type="button" class="btn btn-dark my-2" data-target="scheduleMaintenance.html">Schedule Maintenance</button>
     </div>
 
     <footer class="fixed-bottom bg-light py-2 border-top">
@@ -91,13 +90,6 @@
                         <div>Garage</div>
                     </a>
                 </div>
-                <!-- Mechanic Button -->
-                <div class="col-auto">
-                    <a href="shops.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
-                        <i class="fa-solid fa-map" style="margin-bottom: 2px;"></i>
-                        <div>Workshops</div>
-                    </a>
-                </div>
                 <!-- Messages Button -->
                 <div class="col-auto">
                     <a href="messages.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
@@ -105,11 +97,17 @@
                         <div>Messages</div>
                     </a>
                 </div>
+                <div class="col-auto">
+                    <a href="definitions.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-gear" style="margin-bottom: 2px;"></i>
+                        <div>Settings</div>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="#" id="plusBtn" class="btn btn-primary rounded-circle plus-btn">
+    <a href="#" id="plusBtn" class="btn btn-dark rounded-circle plus-btn">
         <i class="fa-solid fa-plus fa-lg"></i>
     </a>
     

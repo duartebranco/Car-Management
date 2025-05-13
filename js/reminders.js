@@ -65,13 +65,29 @@ function renderReminders(reminders) {
     $list.append("<li class='list-group-item'>No reminders found.</li>");
     return;
   }
+  reminders.sort((a, b) => {
+    function getDate(rem) {
+      const d = rem.date || rem.reminderDate || rem.createdAt;
+      if (d && typeof d === "object" && d.seconds) {
+        return new Date(d.seconds * 1000);
+      }
+      const dateObj = new Date(d);
+      return isNaN(dateObj) ? null : dateObj;
+    }
+    const dateA = getDate(a);
+    const dateB = getDate(b);
+
+    if (!dateA && !dateB) return 0;
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+    return dateA - dateB; // Mais recentes primeiro
+  });
   reminders.forEach(rem => {
     const carName = getVehicleName(rem.carId, window.currentCars || []);
     const carType = getVehicleType(rem.carId, window.currentCars || []);
     const imgSrc = getVehicleImg(carType);
     const title = rem.title || rem.type || "Reminder";
-    const date = formatDate(rem.date || rem.reminderDate || rem.createdAt);
-
+const date = formatReminderDate(rem);
     $list.append(`
       <li class="reminder-card list-group-item p-0 border-0 position-relative">
         <img class="reminder-img" src="${imgSrc}" alt="vehicle" />
@@ -198,3 +214,23 @@ document.getElementById('openFilter').addEventListener('click', function() {
       bar.style.display = 'none';
   }
 });
+
+function formatReminderDate(rem) {
+  const rawDate = rem.date || rem.reminderDate || rem.createdAt;
+  let d;
+  if (rawDate && typeof rawDate === "object" && rawDate.seconds) {
+    d = new Date(rawDate.seconds * 1000);
+  } else {
+    d = new Date(rawDate);
+    if (isNaN(d)) return "";
+  }
+
+  // Só mostra horas se for manutenção
+  if ((rem.type && rem.type.toLowerCase() === "maintenance") || (rem.title && rem.title.toLowerCase() === "maintenance")) {
+    return d.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit", year: "numeric" }) +
+      ", " +
+      d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
+  } else {
+    return d.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
+  }
+}

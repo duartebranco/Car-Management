@@ -36,3 +36,27 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 });
+
+$(function() {
+const plusBtn = document.getElementById('plusBtn');
+const floatingButtons = document.querySelector('.floating-buttons');
+
+plusBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (floatingButtons.classList.contains('show')) {
+        floatingButtons.classList.remove('show');
+        floatingButtons.style.display = "none";
+    } else {
+        floatingButtons.classList.add('show');
+        floatingButtons.style.display = "flex";
+    }
+});
+
+// Fechar ao clicar fora
+document.addEventListener('click', function(e) {
+    if (!plusBtn.contains(e.target) && !floatingButtons.contains(e.target)) {
+        floatingButtons.classList.remove('show');
+        floatingButtons.style.display = "none";
+    }
+});
+});

@@ -39,3 +39,20 @@
     font-size: 1.1rem;
     min-width: 260px;
 }
+
+.custom-dropdown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20; /* Garante que está acima das badges */
+}
+
+.custom-dropdown-content {
+    z-index: 30; /* Ainda mais acima para o menu */
+}
+
+.owner-share-badge,
+.other-share-badge {
+    z-index: 10; /* Badge fica por baixo */
+    position: absolute;
+}

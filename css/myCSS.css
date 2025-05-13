@@ -19,9 +19,11 @@
     z-index: 9999;
 }
 .floating-buttons {
+    transition: opacity 0.3s, transform 0.3s;
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    pointer-events: none;
+    left: 25%;
+    transform: translateY(50%);
     bottom: 100px;
     z-index: 999;
     padding: 0;
@@ -29,13 +31,30 @@
     width: max-content;
     background: transparent;
     border-radius: 12px;
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(215, 41, 41, 0.06);
+    opacity: 0;
+    border-radius: 90px; /* aumenta o valor para cantos mais arredondados */
+
 }
+
+.floating-buttons.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    
+    display: flex !important;
+}
+
 .footer-row {
     gap: 5%;
 }
 .floating-buttons button {
     width: 200px;
+    border-radius: 18px;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.13); /* sombra suave */
+    border-radius: 40px; /* aumenta o valor para cantos mais arredondados */
+
+
 }
 
 /* Barra de botões dos carros */
@@ -249,3 +268,15 @@ body {
 .reminder-dropdown-menu .text-danger {
     color: #d32f2f;
 }
+
+.reminder-title {
+    font-size: 0.9rem; /* ou 0.95rem, 14px, etc. Ajusta ao teu gosto */
+}
+
+.reminder-vehicle {
+    font-size: 0.65rem;
+}
+.reminder-date {
+    font-size: 0.85rem;
+}
+
