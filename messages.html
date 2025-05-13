@@ -55,12 +55,21 @@
         </div>
     </div>
 
-    <h3 class="text-center my-3">
-        Your Chats <i class="fa-solid fa-message"></i>
-    </h3>
-    <div class="row" id="chatList">
-        <!-- Chat cards will be dynamically loaded here -->
+    <div class="container" id="chatAreaContainer">
+        <h3 class="text-center my-3">
+            Your Chats <i class="fa-solid fa-message"></i>
+        </h3>
+        <div class="row" id="chatList" style="min-height:200px; position:relative;">
+            <div id="remindersLoader" style="display:flex; align-items:center; justify-content:center; position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; background:rgba(255,255,255,0.8);">
+                <div class="text-center w-100">
+                    <div class="spinner-border" role="status" style="width:2rem;height:2rem;color:#222;"></div>
+                    <p class="mt-2" style="color:#222;">Loading messages...</p>
+                </div>
+            </div>
+            <!-- Chat cards will be dynamically loaded here -->
+        </div>
     </div>
+    
 
     <div id="chatSection" class="container mt-4" style="display: none;">
         <i id="backButton" class="fa-solid fa-arrow-left fa-lg mb-3" style="display: none;"></i>

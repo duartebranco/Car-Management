@@ -38,20 +38,16 @@
                 </form>
             </div>
         </div>
-        <!-- Loader -->
-        <div id="mapLoader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;">
-            <div class="spinner-border text-primary" role="status" style="width:4rem;height:4rem;">
-            <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
 
-        <div class="container">
-            <div id="remindersSection" class="container mt-4 text-center">
-                <h3>Workshops<i class="fa-solid fa-wrench fa-xl"></i></h3>
-                <ul id="remindersList" class="list-group"></ul>
+        <!-- Map Loader (covers only the map area) -->
+        <div style="position:relative;">
+            <div id="mapLoader" style="display:flex; align-items:center; justify-content:center; position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000; background:rgba(255,255,255,0.8);">
+                <div class="text-center">
+                    <div class="spinner-border" role="status" style="width:2rem;height:2rem;color:#222;"></div>
+                    <p class="mt-2" style="color:#222;">Loading workshops...</p>
+                </div>
             </div>
-        
-        <!-- Map Container -->
+            <!-- Map Container -->
             <div id="map"></div>
         </div>
         
@@ -229,6 +225,6 @@
         });
         </script>
         <script src="js/plusbtn.js"></script>
-        <script type="module" src="js/checkAuth.js"></script>
+        <script src="js/checkAuth.js"></script>
     </body>
 </html>

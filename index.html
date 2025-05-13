@@ -31,7 +31,14 @@
             </button>
         </div>
         <div id="carButtonsBar" class="my-3"></div>
-        <ul id="remindersList" class="list-group"></ul>
+        <ul id="remindersList" class="list-group" style="min-height:80px;position:relative;">
+            <div id="remindersLoader" style="display:flex; align-items:center; justify-content:center; position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; background:rgba(255,255,255,0.8);">
+                <div class="text-center w-100">
+                    <div class="spinner-border" role="status" style="width:2rem;height:2rem;color:#222;"></div>
+                    <p class="mt-2" style="color:#222;">Loading reminders...</p>
+                </div>
+            </div>
+        </ul>
     </div>
 
     <div class="floating-buttons flex-column align-items-center" style="display:none;">
