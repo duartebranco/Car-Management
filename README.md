@@ -13,6 +13,4 @@ Password: password
 
 ## TODO
 - [X] Mensagens
-- [ ] Mapa/Mechanic page
-- [ ] Search box
-- [ ] Notifications/email para Reminders
+- [X] Mapa/Mechanic page
