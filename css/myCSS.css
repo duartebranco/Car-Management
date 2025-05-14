@@ -22,9 +22,9 @@
     transition: opacity 0.3s, transform 0.3s;
     position: fixed;
     pointer-events: none;
-    left: 25%;
-    transform: translateY(50%);
-    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
+    bottom: 110px;
     z-index: 999;
     padding: 0;
     display: none;
@@ -40,8 +40,7 @@
 .floating-buttons.show {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
-    
+    transform: translateX(-50%) translateY(0);
     display: flex !important;
 }
 
