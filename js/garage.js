@@ -123,7 +123,7 @@ $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
       const $row = $("#garageRow").empty();
       
       if (uniqueDocs.length === 0) {
-        $row.html('<div class="col-12 text-center my-4"><p>No vehicles in your garage yet</p><a href="addcar.html" class="btn btn-primary">Add Your First Vehicle</a></div>');
+        $row.html('<div class="col-12 text-center my-4"><p>No vehicles in your garage yet</p><a href="addcar.html" class="btn btn-dark">Add Your First Vehicle</a></div>');
         return;
       }
 
