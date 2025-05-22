@@ -127,7 +127,6 @@ $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
         return;
       }
 
-      // Cache para emails de usuários para evitar chamadas repetidas
       const userEmailCache = {};
       
       for (const docSnap of uniqueDocs) {
@@ -295,7 +294,6 @@ $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
     removeDocId = null;
   });
 
-  // Open Share Modal - FIXED VERSION
   $(document).on("click", ".share-car", function(e) {
     e.preventDefault(); 
     e.stopPropagation();
@@ -349,10 +347,8 @@ $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
         { sharedWith: arrayUnion(otherUid) }
       );
 
-      // update owner badge immediately
       const $card = $(`.share-car[data-docid="${shareDocId}"]`).closest(".card");
       
-      // Update the badge
       $card.find(".owner-share-badge").remove();
       $card.append(`
         <span class="badge bg-warning position-absolute owner-share-badge"
@@ -361,7 +357,6 @@ $("#closePopup").on("click", () => $("#popupMessage").fadeOut());
         </span>
       `);
       
-      // Update or add the ownership text
       const currentOwnershipText = $card.find(".card-body p.card-text:contains('Private vehicle'), .card-body p.card-text:contains('Shared with')");
       
       if (currentOwnershipText.length) {

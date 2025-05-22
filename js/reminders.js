@@ -38,7 +38,6 @@ function formatDate(date) {
       d = new Date(date);
       if (isNaN(d)) return date;
     }
-    // Exemplo: "06/05/2025, 14:00"
     const day = d.toLocaleDateString();
     const hour = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
     return `${day}, ${hour}`;
@@ -80,7 +79,7 @@ function renderReminders(reminders) {
     if (!dateA && !dateB) return 0;
     if (!dateA) return 1;
     if (!dateB) return -1;
-    return dateA - dateB; // Mais recentes primeiro
+    return dateA - dateB; // Recent first
   });
   reminders.forEach(rem => {
     const carName = getVehicleName(rem.carId, window.currentCars || []);
@@ -116,7 +115,7 @@ $(document).ready(function () {
   onAuthStateChanged(auth, async (user) => {
     if (!user) return;
 
-    // Buscar carros do utilizador (próprios e partilhados)
+    // Search for cars owned by the user and shared with the user
     const ownQ = query(collection(db, "cars"), where("userId", "==", user.uid));
     const sharedQ = query(collection(db, "cars"), where("sharedWith", "array-contains", user.uid));
     const [ownSnap, sharedSnap] = await Promise.all([getDocs(ownQ), getDocs(sharedQ)]);
@@ -127,7 +126,7 @@ $(document).ready(function () {
     window.currentCars = uniqueCars;
     renderCarButtons(uniqueCars);
 
-    // Buscar reminders do utilizador
+    // Fetch reminders for the user
     const remindersQ = query(collection(db, "reminders"), where("userId", "==", user.uid));
     const remindersSnap = await getDocs(remindersQ);
     allReminders = remindersSnap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -136,7 +135,7 @@ $(document).ready(function () {
   });
 });
 
-// Handler para seleção/deseleção dos botões dos carros
+// Handler for selecting/deselecting car buttons
 $(document).on("click", ".car-btn", function () {
   const $btn = $(this);
   if ($btn.hasClass("selected")) {
@@ -144,7 +143,7 @@ $(document).on("click", ".car-btn", function () {
     selectedCarId = null;
     renderReminders(allReminders);
   } else {
-    $(".car-btn").removeClass("selected"); // <-- isto remove de todos
+    $(".car-btn").removeClass("selected"); 
     $btn.addClass("selected");
     selectedCarId = $btn.data("carid");
     renderReminders(allReminders.filter(r => r.carId === selectedCarId));

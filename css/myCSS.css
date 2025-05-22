@@ -1,4 +1,4 @@
-/* Botões do footer e plus */
+/* Footer and plus buttons */
 .footer-btn {
     width: 50px;
     height: 50px;
@@ -33,7 +33,7 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(215, 41, 41, 0.06);
     opacity: 0;
-    border-radius: 90px; /* aumenta o valor para cantos mais arredondados */
+    border-radius: 90px;
 
 }
 
@@ -50,13 +50,13 @@
 .floating-buttons button {
     width: 200px;
     border-radius: 18px;
-    box-shadow: 0 2px 18px rgba(0,0,0,0.13); /* sombra suave */
-    border-radius: 40px; /* aumenta o valor para cantos mais arredondados */
+    box-shadow: 0 2px 18px rgba(0,0,0,0.13); /* Smooth shade */
+    border-radius: 40px;
 
 
 }
 
-/* Barra de botões dos carros */
+/* Car button bar */
 #carButtonsBar {
     width: 100vw;
     margin-left: 50%;
@@ -68,14 +68,14 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: auto;
-    overflow-y: hidden; /* impede scroll vertical */
+    overflow-y: hidden; /* prevents vertical scroll */
     gap: 14px;
     padding: 10px 0;
     max-height: 64px;
     scrollbar-width: thin;
     scrollbar-color: #bbb #f8f9fa;
     align-items: center;
-    display:none; /* Esconde a barra inicialmente */
+    display:none; /* Hide the bar initially */
 }
 #carButtonsBar > .car-btn-modern:first-child {
     margin-left: 5vw;
@@ -89,7 +89,7 @@
 }
 
 .car-btn-modern {
-    display: flex;                /* Corrigido de inline-flex para flex */
+    display: flex; 
     align-items: center;
     background: #fff;
     border: none;
@@ -103,7 +103,6 @@
     height: 48px;
     user-select: none;
     outline: none;
-    /* min-width: 80px;  opcional, podes remover ou ajustar */
     white-space: nowrap;
 }
 
@@ -140,11 +139,11 @@
     font-size: 1em;
     color: #222;
     text-align: left;
-    white-space: nowrap;    /* impede quebra de linha */
+    white-space: nowrap;    /* prevents line breaks */
     flex-shrink: 0;
-    min-width: 0;           /* permite encolher dentro do flex */
-    max-width: 100%;        /* impede sair fora do botão */
-    overflow: visible;      /* garante que não corta */
+    min-width: 0;           /* allows you to choose in flex */
+    max-width: 100%;        /* prevents going outside the button */
+    overflow: visible;      /* guarantees not to cut */
 }
 
 .car-btn-modern .shared-badge {
@@ -163,7 +162,7 @@
 }
 
 body {
-    padding-bottom: 80px; /* Ajusta conforme a altura do teu footer */
+    padding-bottom: 80px;
 }
 
 /* Reminders */
@@ -216,7 +215,7 @@ body {
     white-space: nowrap;
 }
 
-/* Custom dropdown actions (sem Bootstrap) */
+/* Custom dropdown actions */
 .reminder-actions {
     position: relative;
     margin-left: 10px;
@@ -269,7 +268,7 @@ body {
 }
 
 .reminder-title {
-    font-size: 0.9rem; /* ou 0.95rem, 14px, etc. Ajusta ao teu gosto */
+    font-size: 0.9rem;
 }
 
 .reminder-vehicle {

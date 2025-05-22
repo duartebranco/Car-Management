@@ -52,7 +52,7 @@ plusBtn.addEventListener('click', function(e) {
     }
 });
 
-// Fechar ao clicar fora
+// Close when clicking outside
 document.addEventListener('click', function(e) {
     if (!plusBtn.contains(e.target) && !floatingButtons.contains(e.target)) {
         floatingButtons.classList.remove('show');

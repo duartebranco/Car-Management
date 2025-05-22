@@ -17,11 +17,11 @@
     color: #333;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s; /* Efeito suave */
+    transition: background 0.2s; /* Smooth effect */
 }
 
 .custom-dropdown-content a:hover {
-    background: #dadcde; /* Cor de fundo suave ao passar o rato */
+    background: #dadcde; /* Backgroud color smooth on hover */
 }
 
 #confirmRemovePopup {
@@ -44,15 +44,15 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index: 20; /* Garante que está acima das badges */
+    z-index: 20;
 }
 
 .custom-dropdown-content {
-    z-index: 30; /* Ainda mais acima para o menu */
+    z-index: 30;
 }
 
 .owner-share-badge,
 .other-share-badge {
-    z-index: 10; /* Badge fica por baixo */
+    z-index: 10; /* Badge stays below */
     position: absolute;
 }

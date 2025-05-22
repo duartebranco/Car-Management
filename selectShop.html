@@ -123,7 +123,7 @@
                         .bindPopup("Estás aqui")
                         .openPopup();
                 
-                    // Consulta à Overpass API
+                    // Search for car repair in API shops within 10km radius
                     const overpassUrl = "https://overpass-api.de/api/interpreter";
                     const query = `
                         [out:json];

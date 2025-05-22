@@ -23,9 +23,8 @@
 		<link rel="stylesheet" href="css/myCSS.css" />
 		<style>
 			body {
-				padding-bottom: 80px; /* Add padding to prevent footer from covering content */
+				padding-bottom: 80px;
 			}
-			/* Basic styling for time slots if needed */
 			.time-slot-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
@@ -236,7 +235,6 @@
 		<script type="module" src="js/firebase.js"></script>
 		<!-- Ensure firebase is imported -->
 		<script type="module">
-			// Make the main script a module
 			// Import necessary Firestore functions
 			import { auth, db } from "./js/firebase.js";
 			import {
@@ -269,7 +267,6 @@
 						console.error("User not logged in!");
 						alert("You must be logged in to schedule maintenance.");
 						form.querySelector('button[type="submit"]').disabled = true; // Disable form
-						// Optionally redirect: window.location.href = 'auth.html';
 					}
 				});
 
@@ -422,7 +419,7 @@
 						userId: currentUserId,
 						carId: maintenanceData.vehicleId,
 						serviceType: maintenanceData.serviceType,
-						title: maintenanceData.serviceType, // <-- Adiciona esta linha!
+						title: maintenanceData.serviceType,
 						notes: maintenanceData.notes || null,
 						shopName: shopName,
 						reminderDate: scheduleTimestamp,

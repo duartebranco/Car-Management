@@ -1,4 +1,3 @@
-// filepath: c:\Users\ACER\Desktop\Pastas\Uni\2ºAno\2º Semestre\IHC\Car-Management\js\addcar.js
 import { db, auth } from "./firebase.js";
 import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
@@ -157,7 +156,6 @@ $(document).ready(function() {
         submitButton.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Adding...'); // Add spinner
 
         try {
-            // Changed collection name to 'cars' to match garage.js
             const docRef = await addDoc(collection(db, "cars"), vehicleData);
             console.log("Vehicle added with ID:", docRef.id);
             sessionStorage.setItem("carAddedMessage", `You've added ${vehicleData.name} to your garage`);
