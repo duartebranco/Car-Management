@@ -34,6 +34,10 @@ export const carService = {
     await updateDoc(doc(db, "cars", carId), data);
   },
 
+  async addCar(data) {
+    return await addDoc(collection(db, "cars"), data);
+  },
+
   async deleteCar(carId) {
     await deleteDoc(doc(db, "cars", carId));
   },

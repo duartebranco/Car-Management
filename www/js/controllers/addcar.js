@@ -1,6 +1,7 @@
-import { db, auth } from "../services/firebase.js";
-import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { auth } from "../services/firebase.js";
+import { serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { carService } from "../services/car.service.js";
 
 $(document).ready(function() {
     let carDataArray = [];
@@ -156,7 +157,7 @@ $(document).ready(function() {
         submitButton.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Adding...');
 
         try {
-            await addDoc(collection(db, "cars"), vehicleData);
+            await carService.addCar(vehicleData);
             sessionStorage.setItem("carAddedMessage", `You've added ${vehicleData.name} to your garage`);
             window.location.href = "garage.html";
         } catch (error) {
