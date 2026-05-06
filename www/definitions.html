@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1d1d1d">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Definitions - Car Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/myCSS.css" />
+</head>
+<body>
+        <div class="container-fluid py-3" style="background-color: #1d1d1d; border-bottom: 2px solid #202020; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        <div class="text-center">
+            <img src="images/logo2.png" alt="Logo" style="height:80px; margin-bottom: 10px;">
+            <h1 style="color: #ffffff;">Car Management</h1>
+        </div>
+    </div>
+    <div class="container py-5">
+        <h1 class="text mb-4"><a href="index.html" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a> <i class="fa-solid fa-gear"></i> Settings</h1>
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Account</h5>
+                <div id="userInfo" class="mb-3">
+                    <div><strong>Email:</strong> <span id="userEmail"></span></div>
+                </div>
+                <button id="changePasswordBtn" class="btn btn-outline-primary w-100 mb-2">
+                    <i class="fa-solid fa-key"></i> Change Password
+                </button>
+                <button id="logoutBtn" class="btn btn-outline-danger w-100 mb-2">
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </button>
+                <button id="deleteAccountBtn" class="btn btn-outline-secondary w-100">
+                    <i class="fa-solid fa-user-xmark"></i> Delete Account
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Popup for messages -->
+    <div id="customPopup" style="display:none; position:fixed; top:30px; left:50%; transform:translateX(-50%); background:#fff; color:#222; padding:20px 30px; border-radius:10px; z-index:9999; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:1.1rem;">
+        <span id="customPopupText"></span>
+        <button id="closeCustomPopup" style="margin-left:20px; background:none; border:none; color:#222; font-weight:bold; font-size:1.2em; cursor:pointer;">&times;</button>
+    </div>
+    <!-- Confirm Delete Popup -->
+    <div id="confirmDeletePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; color:#222; padding:24px 32px; border-radius:10px; z-index:10000; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:1.1rem; min-width:260px;">
+        <span id="confirmDeleteText">Are you sure you want to delete your account? This cannot be undone.</span>
+        <div class="mt-3 text-end">
+            <button id="cancelDeleteBtn" class="btn btn-secondary btn-sm me-2">Cancel</button>
+            <button id="confirmDeleteBtn" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+    </div>
+
+    <div class="floating-buttons flex-column align-items-center" style="display:none;">
+        <button type="button" class="btn btn-dark my-2" data-target="addcar.html">Add Car</button>
+        <button type="button" class="btn btn-dark my-2" data-target="setReminder.html">Set Reminder</button>
+        <button type="button" class="btn btn-dark my-2" data-target="scheduleMaintenance.html">Schedule Maintenance</button>
+    </div>
+
+    <footer class="fixed-bottom bg-light py-2 border-top">
+        <div class="container">
+            <div class="row justify-content-center text-center footer-row">
+                <!-- Reminder Button -->
+                <div class="col-auto">
+                    <a href="index.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-clock" style="margin-bottom: 2px;"></i>
+                        <div style="margin-top: 2px;">Reminders</div>
+                    </a>
+                </div>
+                <!-- Garage Button -->
+                <div class="col-auto">
+                    <a href="garage.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-car" style="margin-bottom: 2px;"></i>
+                        <div>Garage</div>
+                    </a>
+                </div>
+                <!-- Messages Button -->
+                <div class="col-auto">
+                    <a href="messages.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-message" style="margin-bottom: 2px;"></i>
+                        <div>Messages</div>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="definitions.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                        <i class="fa-solid fa-gear" style="margin-bottom: 2px;"></i>
+                        <div>Settings</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" id="plusBtn" class="btn btn-dark rounded-circle plus-btn">
+        <i class="fa-solid fa-plus fa-lg"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="js/plusbtn.js"></script>
+    <script type="module" src="js/definitions.js"></script>
+    <script src="js/notifications.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+</body>
+</html>

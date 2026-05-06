@@ -1,0 +1,24 @@
+# Node.js dependencies
+node_modules/
+
+# Android build artifacts
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+
+# Android Keystore (never commit!)
+*.jks
+*.keystore
+release.properties
+
+# IDE & OS files
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+.vscode/
+
+# PWA build cache (if any)
+dist/
+.cache/
