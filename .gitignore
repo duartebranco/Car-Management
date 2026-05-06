@@ -6,6 +6,11 @@ android/.gradle/
 android/app/build/
 android/build/
 android/local.properties
+android/.project
+android/app/.project
+android/.settings/
+android/app/.settings/
+android/app/.classpath
 
 # Android Keystore (never commit!)
 *.jks
@@ -22,3 +27,8 @@ Thumbs.db
 # PWA build cache (if any)
 dist/
 .cache/
+
+# my build scripts
+build.sh
+install.sh
+uninstall.sh
