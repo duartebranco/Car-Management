@@ -1,4 +1,4 @@
-import { auth } from "./firebase.js";
+import { auth } from "../services/firebase.js";
 import { sendPasswordResetEmail, deleteUser, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
 let customPopupTimeout = null;

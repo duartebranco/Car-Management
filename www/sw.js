@@ -24,7 +24,7 @@ const PRECACHE_ASSETS = [
   "./css/editcar.css",
   "./js/firebase.js",
   "./js/auth.js",
-  "./js/checkAuth.js",
+  "./js/services/auth.service.js",
   "./js/notifications.js",
   "./js/plusbtn.js",
   "./js/reminders.js",

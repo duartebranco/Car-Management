@@ -1,7 +1,7 @@
 // js/auth.js
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { setDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { auth, db } from "./firebase.js";
+import { auth, db } from "../services/firebase.js";
 
 // Sign up function
 export const signUp = async (email, password) => { // Use async/await for cleaner code

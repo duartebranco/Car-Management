@@ -118,7 +118,7 @@
     <a href="#" id="plusBtn" class="btn btn-dark rounded-circle plus-btn">
         <i class="fa-solid fa-plus fa-lg"></i>
     </a>
-	    <script src="../js/notifications.js"></script>
+	    <script src="../js/services/notifications.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js");
@@ -135,7 +135,7 @@
 		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 		crossorigin="anonymous"
 	></script>
-	<script type="module" src="../js/garage.js"></script>
-	<script type="module" src="../js/checkAuth.js"></script>
-	<script src="../js/plusbtn.js"></script>
+	<script type="module" src="../js/controllers/garage.js"></script>
+	<script type="module" src="../js/services/auth.service.js"></script>
+	<script src="../js/components/plusbtn.js"></script>
 </html>
