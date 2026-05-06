@@ -1,62 +1,29 @@
 $(document).ready(function() {
-    $('#plusBtn').on('click', function(e) {
+    const $plusBtn = $('#plusBtn');
+    const $fb = $('.floating-buttons');
+
+    $plusBtn.on('click', function(e) {
         e.preventDefault();
-        const $fb = $('.floating-buttons');
-        $fb.toggle();
-        if ($fb.is(':visible')) {
-            $fb.addClass('d-flex');
+        
+        if ($fb.hasClass('show')) {
+            $fb.removeClass('show d-flex').hide();
         } else {
-            $fb.removeClass('d-flex');
+            $fb.addClass('show d-flex').show();
         }
     });
 
-    // Add navigation for floating-buttons
-    $('.floating-buttons').on('click', 'button[data-target]', function() {
+    $fb.on('click', 'button[data-target]', function() {
         const target = $(this).data('target');
-        if (target) {
-            window.location.href = target;
-        }
+        if (target) window.location.href = target;
     });
 
-    // Hide floating-buttons when clicking outside
     $(document).on('click', function(e) {
-        const $fb = $('.floating-buttons');
-        const $plusBtn = $('#plusBtn');
-        if (
-            $fb.is(':visible') &&
-            !$fb.is(e.target) && $fb.has(e.target).length === 0 &&
-            !$plusBtn.is(e.target) && $plusBtn.has(e.target).length === 0
-        ) {
-            $fb.hide().removeClass('d-flex');
+        if ($fb.hasClass('show') && !$fb.is(e.target) && $fb.has(e.target).length === 0 && !$plusBtn.is(e.target) && $plusBtn.has(e.target).length === 0) {
+            $fb.removeClass('show d-flex').hide();
         }
     });
 
-    // Prevent click inside floating-buttons from bubbling up
-    $('.floating-buttons').on('click', function(e) {
+    $fb.on('click', function(e) {
         e.stopPropagation();
     });
-});
-
-$(function() {
-const plusBtn = document.getElementById('plusBtn');
-const floatingButtons = document.querySelector('.floating-buttons');
-
-plusBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (floatingButtons.classList.contains('show')) {
-        floatingButtons.classList.remove('show');
-        floatingButtons.style.display = "none";
-    } else {
-        floatingButtons.classList.add('show');
-        floatingButtons.style.display = "flex";
-    }
-});
-
-// Close when clicking outside
-document.addEventListener('click', function(e) {
-    if (!plusBtn.contains(e.target) && !floatingButtons.contains(e.target)) {
-        floatingButtons.classList.remove('show');
-        floatingButtons.style.display = "none";
-    }
-});
 });
