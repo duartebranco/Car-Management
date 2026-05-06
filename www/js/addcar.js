@@ -128,14 +128,14 @@ $(document).ready(function() {
              plateInput.focus();
              return;
         }
-        if (!brandSelect.val()) { // Use brandSelect jQuery object
+        if (!brandSelect.val()) {
             alert("Please select a vehicle brand.");
-            brandSelect.focus(); // Focus the select element
+            brandSelect.focus();
             return;
         }
-         if (!modelSelect.val() || modelSelect.is(':disabled')) { // Use modelSelect jQuery object
+         if (!modelSelect.val() || modelSelect.is(':disabled')) {
             alert("Please select a vehicle model.");
-            modelSelect.focus(); // Focus the select element
+            modelSelect.focus();
             return;
         }
 
@@ -145,25 +145,24 @@ $(document).ready(function() {
             vehicleType: $("#vehicleType").val(),
             name: $("#name").val().trim(),
             plate: plateValue.toUpperCase(),
-            brand: brandSelect.val(), // Use brandSelect jQuery object
-            model: modelSelect.val(), // Use modelSelect jQuery object
+            brand: brandSelect.val(),
+            model: modelSelect.val(),
             kms: $("#kms").val() ? parseInt($("#kms").val(), 10) : null,
             year: $("#year").val() ? parseInt($("#year").val(), 10) : null,
             createdAt: serverTimestamp()
         };
 
         const submitButton = $(this).find('button[type="submit"]');
-        submitButton.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Adding...'); // Add spinner
+        submitButton.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Adding...');
 
         try {
-            const docRef = await addDoc(collection(db, "cars"), vehicleData);
-            console.log("Vehicle added with ID:", docRef.id);
+            await addDoc(collection(db, "cars"), vehicleData);
             sessionStorage.setItem("carAddedMessage", `You've added ${vehicleData.name} to your garage`);
             window.location.href = "garage.html";
         } catch (error) {
             console.error("Error adding vehicle:", error);
             alert("Failed to add vehicle. Please try again.");
-            submitButton.prop('disabled', false).html('<i class="fa-solid fa-plus"></i> Add'); // Restore button text
+            submitButton.prop('disabled', false).html('<i class="fa-solid fa-plus"></i> Add');
         }
     });
 });
