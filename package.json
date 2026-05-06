@@ -1,0 +1,20 @@
+{
+  "name": "car-management",
+  "version": "1.0.0",
+  "description": "Car Management — cross-platform app (Android + PWA/PC) built with Capacitor.",
+  "scripts": {
+    "sync": "npx cap sync",
+    "sync:android": "npx cap sync android",
+    "open:android": "npx cap open android",
+    "copy:android": "npx cap copy android"
+  },
+  "keywords": ["capacitor", "android", "pwa", "car-management"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^8.3.1",
+    "@capacitor/cli": "^7.6.2",
+    "@capacitor/core": "^8.3.1",
+    "@capacitor/local-notifications": "^8.0.2"
+  }
+}

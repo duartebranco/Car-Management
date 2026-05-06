@@ -1,0 +1,28 @@
+{
+  "name": "Car Management",
+  "short_name": "CarMgmt",
+  "description": "Manage your vehicles, set reminders and schedule maintenance — all in one place.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1d1d1d",
+  "theme_color": "#1d1d1d",
+  "orientation": "portrait",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "images/logo2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["auto", "utilities"],
+  "lang": "en",
+  "id": "com.carmanagement.app"
+}
