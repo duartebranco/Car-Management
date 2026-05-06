@@ -7,7 +7,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
 		/>
-		<link rel="manifest" href="manifest.json">
+		<link rel="manifest" href="../manifest.json">
 		<meta name="theme-color" content="#1d1d1d">
 		<title>Car Management</title>
 		<link
@@ -23,8 +23,8 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
-		<link rel="stylesheet" href="css/myCSS.css" />
-		<link rel="stylesheet" href="css/garage.css" />
+		<link rel="stylesheet" href="../css/myCSS.css" />
+		<link rel="stylesheet" href="../css/garage.css" />
 	</head>
 	<body>
 		<!-- Pop up -->
@@ -43,7 +43,7 @@
 		    <div class="container-fluid py-3" style="background-color: #1d1d1d; border-bottom: 2px solid #202020; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
         <div class="text-center">
-            <img src="images/logo2.png" alt="Logo" style="height:80px; margin-bottom: 10px;">
+            <img src="../images/logo2.png" alt="Logo" style="height:80px; margin-bottom: 10px;">
             <h1 style="color: #ffffff;">Car Management</h1>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="row justify-content-center text-center footer-row">
                 <!-- Reminder Button -->
                 <div class="col-auto">
-                    <a href="index.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
+                    <a href="../index.html" class="btn btn-link text-secondary footer-btn d-flex flex-column align-items-center justify-content-center" style="text-decoration: none;">
                         <i class="fa-solid fa-clock" style="margin-bottom: 2px;"></i>
                         <div style="margin-top: 2px;">Reminders</div>
                     </a>
@@ -118,7 +118,7 @@
     <a href="#" id="plusBtn" class="btn btn-dark rounded-circle plus-btn">
         <i class="fa-solid fa-plus fa-lg"></i>
     </a>
-	    <script src="js/notifications.js"></script>
+	    <script src="../js/notifications.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js");
@@ -135,7 +135,7 @@
 		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 		crossorigin="anonymous"
 	></script>
-	<script type="module" src="js/garage.js"></script>
-	<script type="module" src="js/checkAuth.js"></script>
-	<script src="js/plusbtn.js"></script>
+	<script type="module" src="../js/garage.js"></script>
+	<script type="module" src="../js/checkAuth.js"></script>
+	<script src="../js/plusbtn.js"></script>
 </html>

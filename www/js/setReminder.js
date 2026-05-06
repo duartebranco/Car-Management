@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bsToast.show();
         toastEl.addEventListener(
             "hidden.bs.toast",
-            () => (window.location.href = "index.html"),
+            () => (window.location.href = "../index.html"),
             { once: true }
         );
     });

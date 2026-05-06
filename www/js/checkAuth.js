@@ -6,6 +6,6 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         document.body.style.display = "";
     } else {
-        window.location.href = 'auth.html';
+        window.location.href = "auth.html";
     }
 });
