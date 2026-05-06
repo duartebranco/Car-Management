@@ -1,5 +1,6 @@
 import { auth } from "../services/firebase.js";
-import { sendPasswordResetEmail, deleteUser, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { authService } from "../services/auth.service.js";
 
 let customPopupTimeout = null;
 function showCustomPopup(message) {
@@ -28,7 +29,7 @@ document.getElementById("cancelDeleteBtn").onclick = () => {
 document.getElementById("confirmDeleteBtn").onclick = async () => {
     confirmDeletePopup.style.display = "none";
     try {
-        await deleteUser(auth.currentUser);
+        await authService.deleteAccount(authService.getCurrentUser());
         showCustomPopup("Account deleted.");
         setTimeout(() => window.location.href = "auth.html", 1200);
     } catch (err) {
@@ -45,14 +46,14 @@ onAuthStateChanged(auth, user => {
 });
 
 document.getElementById("changePasswordBtn").onclick = async () => {
-    const user = auth.currentUser;
+    const user = authService.getCurrentUser();
     if (user) {
-        await sendPasswordResetEmail(auth, user.email);
+        await authService.resetPassword(user.email);
         showCustomPopup("Password reset email sent.");
     }
 };
 
 document.getElementById("logoutBtn").onclick = async () => {
-    await auth.signOut();
+    await authService.logout();
     window.location.href = "auth.html";
 };
