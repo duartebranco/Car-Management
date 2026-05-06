@@ -1,13 +1,7 @@
-import { db, auth } from "../services/firebase.js";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  deleteDoc,
-  doc as firestoreDoc
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { auth } from "../services/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { carService } from "../services/car.service.js";
+import { reminderService } from "../services/reminder.service.js";
 
 let allReminders = [];
 let selectedCarId = null;
@@ -115,23 +109,23 @@ $(document).ready(function () {
   onAuthStateChanged(auth, async (user) => {
     if (!user) return;
 
-    // Search for cars owned by the user and shared with the user
-    const ownQ = query(collection(db, "cars"), where("userId", "==", user.uid));
-    const sharedQ = query(collection(db, "cars"), where("sharedWith", "array-contains", user.uid));
-    const [ownSnap, sharedSnap] = await Promise.all([getDocs(ownQ), getDocs(sharedQ)]);
-    const ownCars = ownSnap.docs.map(d => ({ id: d.id, ...d.data(), shared: false }));
-    const sharedCars = sharedSnap.docs.map(d => ({ id: d.id, ...d.data(), shared: true }));
-    const uniqueCars = Array.from(new Map([...ownCars, ...sharedCars].map(d => [d.id, d])).values());
+    try {
+      const ownCars = await carService.getUserCars(user.uid);
+      const sharedCars = await carService.getSharedCars(user.uid);
+      
+      ownCars.forEach(c => c.shared = false);
+      sharedCars.forEach(c => c.shared = true);
+      
+      const uniqueCars = Array.from(new Map([...ownCars, ...sharedCars].map(d => [d.id, d])).values());
 
-    window.currentCars = uniqueCars;
-    renderCarButtons(uniqueCars);
+      window.currentCars = uniqueCars;
+      renderCarButtons(uniqueCars);
 
-    // Fetch reminders for the user
-    const remindersQ = query(collection(db, "reminders"), where("userId", "==", user.uid));
-    const remindersSnap = await getDocs(remindersQ);
-    allReminders = remindersSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    renderReminders(allReminders);
+      allReminders = await reminderService.getUserReminders(user.uid);
+      renderReminders(allReminders);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
   });
 });
 
@@ -195,7 +189,7 @@ $(document).on("click", ".delete-reminder", function (e) {
   const reminderId = $(this).data("id");
   showDeletePopup(reminderId, async () => {
     try {
-      await deleteDoc(firestoreDoc(db, "reminders", reminderId));
+      await reminderService.deleteReminder(reminderId);
       allReminders = allReminders.filter(r => r.id !== reminderId);
       renderReminders(selectedCarId ? allReminders.filter(r => r.carId === selectedCarId) : allReminders);
     } catch (err) {
