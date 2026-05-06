@@ -1,24 +1,28 @@
-import { auth, db } from "../services/firebase.js";
-import { collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { auth } from "../services/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { carService } from "../services/car.service.js";
+import { reminderService } from "../services/reminder.service.js";
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) return;
-    const ownQ    = query(collection(db, "cars"), where("userId",      "==",              user.uid));
-    const sharedQ = query(collection(db, "cars"), where("sharedWith","array-contains", user.uid));
-    const [ownSnap, sharedSnap] = await Promise.all([ getDocs(ownQ), getDocs(sharedQ) ]);
-    const docs     = [...ownSnap.docs, ...sharedSnap.docs];
-    const unique   = Array.from(new Map(docs.map(d=>[d.id,d])).values());
+    
+    try {
+        const ownCars = await carService.getUserCars(user.uid);
+        const sharedCars = await carService.getSharedCars(user.uid);
+        const docs = [...ownCars, ...sharedCars];
+        const unique = Array.from(new Map(docs.map(d => [d.id, d])).values());
 
-    const carSelect = document.getElementById("carSelect");
-    carSelect.innerHTML = "<option value='' disabled selected>Select a car</option>";
-    unique.forEach(docSnap => {
-        const car = docSnap.data();
-        const opt = document.createElement("option");
-        opt.value = docSnap.id;
-        opt.textContent = car.name;
-        carSelect.appendChild(opt);
-    });
+        const carSelect = document.getElementById("carSelect");
+        carSelect.innerHTML = "<option value='' disabled selected>Select a car</option>";
+        unique.forEach(car => {
+            const opt = document.createElement("option");
+            opt.value = car.id;
+            opt.textContent = car.name || car.plate || "Unnamed";
+            carSelect.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Error loading cars for reminder:", err);
+    }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -67,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Save to Firestore
         try {
-            await addDoc(collection(db, "reminders"), {
+            await reminderService.addReminder({
                 userId: user.uid,
                 carId,
                 type,

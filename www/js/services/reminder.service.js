@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, getDocs, query, where, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection, getDocs, query, where, deleteDoc, doc, addDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 export const reminderService = {
   async getUserReminders(userId) {
@@ -30,5 +30,9 @@ export const reminderService = {
 
   async deleteReminder(reminderId) {
     await deleteDoc(doc(db, "reminders", reminderId));
+  },
+
+  async addReminder(data) {
+    return await addDoc(collection(db, "reminders"), data);
   }
 };

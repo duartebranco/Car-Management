@@ -1,9 +1,5 @@
-import { db, auth } from "../services/firebase.js";
-import {
-    doc,
-    getDoc,
-    updateDoc
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { auth } from "../services/firebase.js";
+import { carService } from "../services/car.service.js";
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -19,23 +15,27 @@ $(document).ready(async function() {
     }
 
     // Fetch car data
-    const docRef = doc(db, "cars", docId);
-    const docSnap = await getDoc(docRef);
+    try {
+        const car = await carService.getCarById(docId);
+        if (!car) {
+            alert("Vehicle not found.");
+            window.location.href = "garage.html";
+            return;
+        }
 
-    if (!docSnap.exists()) {
-        alert("Vehicle not found.");
+        $("#vehicleType").val(car.vehicleType);
+        $("#name").val(car.name);
+        $("#plate").val(car.plate);
+        $("#brand").val(car.brand);
+        $("#model").val(car.model);
+        $("#kms").val(car.kms || "");
+        $("#year").val(car.year || "");
+    } catch (err) {
+        console.error("Error loading car:", err);
+        alert("Failed to load vehicle.");
         window.location.href = "garage.html";
         return;
     }
-
-    const car = docSnap.data();
-    $("#vehicleType").val(car.vehicleType);
-    $("#name").val(car.name);
-    $("#plate").val(car.plate);
-    $("#brand").val(car.brand);
-    $("#model").val(car.model);
-    $("#kms").val(car.kms || "");
-    $("#year").val(car.year || "");
 
     // Handle form submit
     $("#editCarForm").on("submit", async function(e) {
@@ -52,7 +52,7 @@ $(document).ready(async function() {
         };
 
         try {
-            await updateDoc(docRef, updatedCar);
+            await carService.updateCar(docId, updatedCar);
             sessionStorage.setItem("carAddedMessage", `You've updated ${updatedCar.name}`);
             window.location.href = "garage.html";
         } catch (error) {

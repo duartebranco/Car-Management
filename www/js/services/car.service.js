@@ -24,6 +24,16 @@ export const carService = {
     return snap.docs.map(d => ({ id: d.id, ...d.data() }));
   },
 
+  async getCarById(carId) {
+    const d = await getDoc(doc(db, "cars", carId));
+    if (!d.exists()) return null;
+    return { id: d.id, ...d.data() };
+  },
+
+  async updateCar(carId, data) {
+    await updateDoc(doc(db, "cars", carId), data);
+  },
+
   async deleteCar(carId) {
     await deleteDoc(doc(db, "cars", carId));
   },
