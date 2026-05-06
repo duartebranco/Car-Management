@@ -6,6 +6,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         document.body.style.display = "";
     } else {
-        window.location.href = "auth.html";
+        const isRoot = !window.location.pathname.includes('/pages/');
+        window.location.href = isRoot ? "pages/auth.html" : "auth.html";
     }
 });
